@@ -1,0 +1,93 @@
+name: Auto-Checks
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  basic-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      # 1) Enforce branch naming: must start with the student's GitHub username
+      - name: Ensure branch naming (username prefix)
+        run: |
+          BRANCH="${{ github.head_ref }}"
+          USER="${{ github.actor }}"
+          echo "Branch: $BRANCH / Actor: $USER"
+          if ! echo "$BRANCH" | grep -E "^${USER}/"; then
+            echo "Branch must start with your GitHub username: ${USER}/"; exit 1; fi
+
+      # 2) Commit message quality + must reference an issue number
+      - name: Check commit messages + issue refs
+        run: |
+          git log origin/main..HEAD --pretty=format:'%s' -n 50 | tee commits.txt
+          if ! grep -E '^(feat|fix|docs|chore|refactor|test|style|perf|setup)(\(.+\))?: ' commits.txt; then
+            echo "Use conventional commits (e.g., feat: message)"; exit 1; fi
+          if ! grep -E '#[0-9]+' commits.txt; then
+            echo "Reference an issue number like (#1) in at least one commit"; exit 1; fi
+
+      # 3) Locate THIS PR's bio file (robust)
+      - name: Locate bio file for this PR
+        id: bio
+        shell: bash
+        run: |
+          set -euo pipefail
+          USER="${{ github.actor }}"
+          BASE="${{ github.event.pull_request.base.sha }}"
+          HEAD="${{ github.event.pull_request.head.sha }}"
+
+          # 1) Bio files added/modified in THIS PR
+          mapfile -t changed < <(git diff --name-only --diff-filter=AM "$BASE".."$HEAD" -- 'students/*-bio.md' || true)
+
+          pick=""
+          if (( ${#changed[@]} == 1 )); then
+            pick="${changed[0]}"
+          elif (( ${#changed[@]} > 1 )); then
+            # Prefer the one that mentions @username
+            for f in "${changed[@]}"; do
+              if grep -qF "@${USER}" "$f"; then pick="$f"; break; fi
+            done
+            # If still ambiguous, just take the first changed file
+            [[ -z "$pick" ]] && pick="${changed[0]}"
+          fi
+
+          # 2) Fallback: search any existing bio that mentions @username
+          if [[ -z "$pick" ]]; then
+            pick="$(grep -rlF "@${USER}" students/*-bio.md 2>/dev/null | head -n1 || true)"
+          fi
+
+          if [[ -z "$pick" ]]; then
+            echo "Could not determine your bio file. Make sure you added students/<lastname>-bio.md and included your @${USER}" >&2
+            exit 1
+          fi
+
+          echo "bio_file=$pick" >> "$GITHUB_OUTPUT"
+          echo "Found bio: $pick"
+
+
+      # 4) Ensure README has Contributors section and was actually changed
+      - name: Check README contributors updated
+        run: |
+          if ! grep -q "^##[[:space:]]\+Contributors" README.md; then
+            echo "README missing '## Contributors' section"; exit 1; fi
+          DIFF="$(git diff origin/main..HEAD -- README.md)"
+          if ! echo "$DIFF" | grep -E '^\+[^+]' | grep -vi 'contributors' | grep -q .; then
+            echo "README.md appears unchanged; add your contributor line"; exit 1; fi
+
+      # 5) NEW: README must include the student's @username
+      - name: Verify @username present in README
+        run: |
+          USER="${{ github.actor }}"
+          if ! grep -F "@${USER}" README.md >/dev/null; then
+            echo "Your GitHub username (@${USER}) must appear in README.md under Contributors"; exit 1; fi
+
+      # 6) NEW: Bio file must include the student's @username
+        # Uses the file detected in step #3
+      - name: Verify @username present in bio
+        run: |
+          USER="${{ github.actor }}"
+          BIO_FILE="${{ steps.bio.outputs.bio_file }}"
+          if ! grep -F "@${USER}" "$BIO_FILE" >/dev/null; then
+            echo "Your GitHub username (@${USER}) must appear in $BIO_FILE"; exit 1; fi

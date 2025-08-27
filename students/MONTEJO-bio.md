@@ -1,0 +1,4 @@
+- Year/Section: 3rd Year / G2
+- Favorite Language: Java
+- One Git Tip Learned: Always make a branch everytime you make changes
+- GitHub: @primzcm
