@@ -21,7 +21,7 @@ You will **fork** this repo, work on a **feature branch**, and open a **Pull Req
 - **Branch naming (required):** `your-github-username/feature-…`
 - **Commit style:** Conventional Commits (e.g., `feat: …`, `docs: …`) and reference an issue `(#1)` or `(#2)`
 - **Do not** push directly to `main`. Use a PR and request review.
-- **Files to modify/add:** `README.md` (Contributors) and `students/<lastname>-bio.md`
+- **Files to modify/add:** `README.md` (Contributors) and `students/<lastname>-<firstname>-bio.md`
 
 ## Prerequisites
 - Git installed; GitHub account
@@ -41,7 +41,7 @@ You will **fork** this repo, work on a **feature branch**, and open a **Pull Req
 2. Clone **your fork** and inspect remotes:
    ```bash
    git clone <URL-of-your-fork>
-   cd git-playground-AY2025
+   cd <your-fork-name>
    git remote -v
    ```
    *(Optional but useful):*
@@ -51,9 +51,9 @@ You will **fork** this repo, work on a **feature branch**, and open a **Pull Req
 
 ### B) Create a branch (must start with your GitHub username)
 ```bash
-git switch -c <your-username>/feature-readme
+git switch -c <your-username>/documents-readme
 ```
-Example: `ericrev/feature-readme`
+Example: `blissfuljuan/documents-readme`
 
 ### C) Improve README (Issue #1)
 Add **your real name + @username** under **Contributors** (see section at the bottom):
@@ -67,20 +67,11 @@ Example:
 Commit:
 ```bash
 git add README.md
-git commit -m "docs(readme): add Doe to contributors (#1)"
+git commit -m "docs(readme): add <lastnameL>, <firstname> to contributors (#1)"
 ```
 
-### D) Push & open a Pull Request
-```bash
-git push -u origin <your-username>/feature-readme
-```
-Then open a **Pull Request** to **this class repo**’s `main`:
-- **Title:** `feat: update README – Lastname, Firstname`
-- **Body:** Mention **Issue #1** and describe your changes
-- **Reviewer:** Request your instructor
-
-### E) Add your bio (Issue #2)
-Create `students/<lastname>-bio.md` with the following bullets (include your **@username**):
+### D) Add your bio (Issue #2)
+Create `students/<lastname>-<firstname>-bio.md` with the following bullets (include your **@username**):
 ```markdown
 - Year/Section: e.g., 3rd Year / G02
 - Favorite Language: e.g., Java
@@ -89,10 +80,19 @@ Create `students/<lastname>-bio.md` with the following bullets (include your **@
 ```
 Commit and push:
 ```bash
-git add students/<lastname>-bio.md
-git commit -m "feat(bio): add <lastname> student bio (#2)"
+git add students/<lastname>-<firstname>-bio.md
+git commit -m "docs(bio): add <lastname>, <firstname> student bio (#2)"
 git push
 ```
+
+### E) Push & open a Pull Request
+```bash
+git push -u origin <your-username>/documents-readme
+```
+Then open a **Pull Request** to **this class repo**’s `main`:
+- **Title:** `docs: update README – Lastname, Firstname`
+- **Body:** Mention **Issue #1** and describe your changes
+- **Reviewer:** Request your instructor
 
 ### F) Sync and resolve conflicts (if any)
 If your PR shows conflicts:
