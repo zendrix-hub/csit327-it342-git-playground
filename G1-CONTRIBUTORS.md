@@ -1,3 +1,3 @@
 ## Contributors
 
-Estrera, Michaela Ma. Alexa D. 
+Estrera, Michaela Ma. Alexa D. (@michaela-es)
