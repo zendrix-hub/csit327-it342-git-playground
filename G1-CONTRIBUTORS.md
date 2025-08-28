@@ -1,4 +1,4 @@
 ## Contributors
-- _Add your name here in Task C_
+- Casas, Kursten Dane (**@kurstdane**)
 - Revilleza, Frederick (**@blissfuljuan**)
 - Revilleza, Frederick (**@juantojuan**)
