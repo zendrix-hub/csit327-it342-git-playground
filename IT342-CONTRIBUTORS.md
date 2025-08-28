@@ -10,3 +10,4 @@
 - Carao, Estelle Felicity (**@teruteriri**)
 - Abella, Franchesca Louise (**@ChescaAbella**)
 - Go, Felix Christian (**@Lumity-13**)
+- Lo, Joshua Noel (**juswangs12**)
