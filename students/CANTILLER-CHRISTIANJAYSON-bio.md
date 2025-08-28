@@ -1,4 +1,4 @@
 - Year/Section: 4th Year / G1
-- Favorite Language: React
+- Favorite Language: Java
 - One Git Tip Learned: Use `git status` often
 - GitHub: @Shanta413
