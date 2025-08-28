@@ -6,5 +6,5 @@
 - Abadiano, Kent Dominic (**@KapitanKent**)
 - Cantiller, Christian Jayson (**@Shanta413**)
 - Diva, Justin (**@avid0101**)
+- Carao, Estelle Felicity (**@teruteriri**)
 - Oswa, Yusuf Bin Mohammad Ali (**@YBMACO**)
-
