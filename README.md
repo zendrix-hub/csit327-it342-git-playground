@@ -56,7 +56,7 @@ git switch -c <your-username>/documents-readme
 Example: `blissfuljuan/documents-readme`
 
 ### C) Improve README (Issue #46)
-Add **your real name + @username** under **Contributors** (see section at the bottom):
+Add **your real name + @username** under **Contributors** (see file G*-CONTRIBUTORS.md)):
 ```
 - Lastname, Firstname (**@your-github-username**)
 ```
