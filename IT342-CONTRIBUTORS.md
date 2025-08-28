@@ -12,5 +12,6 @@
 - Abella, Franchesca Louise (**@ChescaAbella**)
 - Go, Felix Christian (**@Lumity-13**)
 - Lo, Joshua Noel (**juswangs12**)
-- Oswa, Yusuf Bin Mohammad Ali (**@YBMACO**)
-- Tabungar, Steven Jan (**@Smuffinn**)
+Oswa, Yusuf Bin Mohammad Ali (**@QYBMACO**)
+Tabungar, Steven Jan (**@Smuffinn**)
+Jumawan, Clyde Nixon (**@klaydgg12**)
