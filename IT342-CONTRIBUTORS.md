@@ -5,3 +5,5 @@
 - Sumucad, Joseph Kyle (**@kylehatescodes**
 - Abadiano, Kent Dominic (**@KapitanKent**)
 - Ygot, Dante (**@Dantogy**)
+- Cantiller, Christian Jayson (**@Shanta413**)
+
