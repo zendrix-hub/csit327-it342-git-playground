@@ -14,9 +14,14 @@ jobs:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
 
+      # Pre-checks BYPASS switch (owner or label)
+      - name: Bypass notice (owner) or instructor-bypass label
+        if: ${{ env.BYPASS == 'true' }}
+        run: echo "Bypass active for ${{ github.actor }} — enforcement steps will be skipped."
+
       # 1) Enforce branch naming: must start with the student's GitHub username
       - name: Ensure branch naming (username prefix)
-        if: ${{ env.BYPASS == 'true' }}
+        if: ${{ env.BYPASS != 'true' }}
         run: |
           BRANCH="${{ github.head_ref }}"
           USER="${{ github.actor }}"
@@ -26,7 +31,7 @@ jobs:
 
       # 2) Commit message quality + must reference an issue number
       - name: Check commit messages + issue refs
-        if: ${{ env.BYPASS == 'true' }}
+        if: ${{ env.BYPASS != 'true' }}
         run: |
           git log origin/main..HEAD --pretty=format:'%s' -n 50 | tee commits.txt
           if ! grep -E '^(feat|fix|docs|chore|refactor|test|style|perf|setup)(\(.+\))?: ' commits.txt; then
@@ -37,7 +42,7 @@ jobs:
       # 3) Locate THIS PR's bio file (kept from your original)
       - name: Locate bio file for this PR
         id: bio
-        if: ${{ env.BYPASS == 'true' }}
+        if: ${{ env.BYPASS != 'true' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -75,7 +80,7 @@ jobs:
       # 4) NEW: Find exactly one group contributors file changed at repo root
       - name: Locate group contributors file (root-level)
         id: grp
-        if: ${{ env.BYPASS == 'true' }}
+        if: ${{ env.BYPASS != 'true' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -103,7 +108,7 @@ jobs:
 
       # 5) Verify PR author's @username appears in that group file (bullet line)
       - name: Verify @username present in group contributors file
-        if: ${{ env.BYPASS == 'true' }}
+        if: ${{ env.BYPASS != 'true' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -127,7 +132,7 @@ jobs:
 
       # 6) (Optional) Ensure only minimal additions were made to that group file
       - name: Ensure only one new roster line added (optional)
-        if: ${{ env.BYPASS == 'true' }}
+        if: ${{ env.BYPASS != 'true' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -144,7 +149,7 @@ jobs:
 
       # 7) Bio file must include the student's @username (kept from original)
       - name: Verify @username present in bio
-        if: ${{ env.BYPASS == 'true' }}
+        if: ${{ env.BYPASS != 'true' }}
         run: |
           USER="${{ github.actor }}"
           BIO_FILE="${{ steps.bio.outputs.bio_file }}"
