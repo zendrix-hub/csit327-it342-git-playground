@@ -1,4 +1,4 @@
-- Year/Section: e.g., 3rd Year / G02
-- Favorite Language: e.g., Java
-- One Git Tip Learned: e.g., Use `git status` often
-- GitHub: @your-github-username
+- Year/Section: 4th year / G02
+- Favorite Language: Java, C, Python
+- One Git Tip Learned: Use `git branch` often
+- GitHub: @klaydgg12
