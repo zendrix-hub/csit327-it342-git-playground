@@ -1,3 +1,5 @@
 ## Contributors
 - Revilleza, Frederick (**@blissfuljuan**)
-- Sumucad, Joseph Kyle (**@kylehatescodes**)
+- Pael, Neilross Ulysses (**@tetWantsToCode**)
+- Sepulveda, Kyle (**@Nagazta**)
+- Sumucad, Joseph Kyle (**@kylehatescodes**
