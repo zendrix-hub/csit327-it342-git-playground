@@ -1,1 +1,2 @@
 ## Contributors
+- Revilleza, Frederick (**@blissfuljuan**)
