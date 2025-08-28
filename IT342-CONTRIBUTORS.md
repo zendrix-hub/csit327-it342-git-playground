@@ -4,4 +4,5 @@
 - Sepulveda, Kyle (**@Nagazta**)
 - Sumucad, Joseph Kyle (**@kylehatescodes**
 - Abadiano, Kent Dominic (**@KapitanKent**)
+- Cantiller, Christian Jayson (**@Shanta413**)
 - Oswa, Yusuf Bin Mohammad Ali (**@YBMACO**)
