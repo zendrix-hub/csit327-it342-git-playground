@@ -55,8 +55,8 @@ git switch -c <your-username>/documents-readme
 ```
 Example: `blissfuljuan/documents-readme`
 
-### C) Improve README (Issue #1)
-Add **your real name + @username** under **Contributors** (see section at the bottom):
+### C) Improve README (Issue #46)
+Add **your real name + @username** under **Contributors** (see file G*-CONTRIBUTORS.md)):
 ```
 - Lastname, Firstname (**@your-github-username**)
 ```
@@ -67,10 +67,10 @@ Example:
 Commit:
 ```bash
 git add README.md
-git commit -m "docs(readme): add <lastnameL>, <firstname> to contributors (#1)"
+git commit -m "docs(readme): add <lastnameL>, <firstname> to contributors (#46)"
 ```
 
-### D) Add your bio (Issue #2)
+### D) Add your bio (Issue #47)
 Create `students/<lastname>-<firstname>-bio.md` with the following bullets (include your **@username**):
 ```markdown
 - Year/Section: e.g., 3rd Year / G02
@@ -81,7 +81,7 @@ Create `students/<lastname>-<firstname>-bio.md` with the following bullets (incl
 Commit and push:
 ```bash
 git add students/<lastname>-<firstname>-bio.md
-git commit -m "docs(bio): add <lastname>, <firstname> student bio (#2)"
+git commit -m "docs(bio): add <lastname>, <firstname> student bio (#47)"
 git push
 ```
 
