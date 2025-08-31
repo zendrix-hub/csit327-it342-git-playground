@@ -1,3 +1,4 @@
+
 name: Auto-Checks
 on:
   pull_request:
@@ -70,7 +71,7 @@ jobs:
           fi
 
           if [[ -z "$pick" ]]; then
-            echo "Could not determine your bio file. Make sure you added students/<lastname>-bio.md and included your @${USER}" >&2
+            echo "Could not determine your bio file. Make sure you added students/<lastname>-<firstname>-bio.md and included your @${USER}" >&2
             exit 1
           fi
 
@@ -87,12 +88,18 @@ jobs:
           BASE="${{ github.event.pull_request.base.sha }}"
           HEAD="${{ github.event.pull_request.head.sha }}"
 
-          # Consider only root files matching G<number>-CONTRIBUTORS.md
-          mapfile -t gfiles < <(git diff --name-only --diff-filter=AM "$BASE".."$HEAD" -- '*-CONTRIBUTORS.md' \
-                                | grep -E '^G[0-9]+-CONTRIBUTORS\.md$' || true)
+          # Collect added/modified files in THIS PR that match "*-CONTRIBUTORS.md"
+          # Using a git pathspec with '*' matches only the repo root (no '/')
+          mapfile -t gfiles < <(git diff --name-only --diff-filter=AM "$BASE".."$HEAD" -- '*-CONTRIBUTORS.md' || true)
+
+          # (Optional safety) Keep only true root-level matches (no '/'); not strictly needed,
+          # but preserves intent even if patterns change later.
+          if (( ${#gfiles[@]} > 0 )); then
+            mapfile -t gfiles < <(printf "%s\n" "${gfiles[@]}" | grep -E '^[^/]+-CONTRIBUTORS\.md$' || true)
+          fi
 
           if (( ${#gfiles[@]} == 0 )); then
-            echo "No group contributors file changed. Edit your group file (e.g., G1-CONTRIBUTORS.md) at the repo root." >&2
+            echo "No group contributors file changed. Edit your group file (e.g., CSIT327-CONTRIBUTORS.md) at the repo root." >&2
             exit 1
           fi
           if (( ${#gfiles[@]} > 1 )); then
@@ -114,17 +121,17 @@ jobs:
           set -euo pipefail
           USER="${{ github.actor }}"
           FILE="${{ steps.grp.outputs.group_file }}"
-          echo "Checking $FILE for @${USER}"
+          echo "Checking $FILE for '- Lastname, Firstname (**@${USER}**)' format"
 
           # Accept -, *, or + bullets, any spaces, then @username
           # After the username, require a non-username char or EOL (prevents partial matches)
-          if ! grep -En "^[-*+][[:space:]]+@${USER}([^A-Za-z0-9-]|$)" "$FILE" >/dev/null; then
-            echo "❌ Couldn't find a bullet line with @${USER} in $FILE" >&2
-            echo "Add a line like:" >&2
-            echo "- @${USER} — Your Name (Section: IT342-G0x)" >&2
-
-            echo "— Debug: showing lines that look like bullets with @ handles —"
-            grep -En "^[-*+][[:space:]]+@" "$FILE" || true
+          if ! grep -En "^[-*+][[:space:]]+[^@]*,[[:space:]]+[^@]*[[:space:]]\\((\\*\\*)?@${USER}(\\*\\*)?\\)[[:space:]]*$" "$FILE" >/dev/null; then
+            echo "❌ Couldn't find a properly formatted line for @${USER} in $FILE" >&2
+            echo "Please add a line exactly like this (with your own name):" >&2
+            echo "- Lastname, Firstname (**@${USER}**)" >&2
+            echo "" >&2
+            echo "— Debug: showing lines with parentheses+@ handles —" >&2
+            grep -En "^[-*+][[:space:]].*\\((\\*\\*)?@.*(\\*\\*)?\\).*$" "$FILE" || true
             exit 1
           fi
 
