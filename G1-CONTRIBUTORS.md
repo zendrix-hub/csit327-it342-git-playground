@@ -3,3 +3,4 @@
 - Revilleza, Frederick (**@blissfuljuan**)
 - Revilleza, Frederick (**@juantojuan**)
 - Estrera, Michaela Ma. Alexa D. (@michaela-es)
+- Abel, Zydric (**@zydric**)
