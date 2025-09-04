@@ -17,4 +17,4 @@
 - Caranzo, Mac Howard (**@Howardness**)
 - Tabungar, Steven Jan (**@Smuffinn**)
 - verano, joel (**@VeranoJoel**)
-- Riva, Zendrix(**zendrix-hub**)
+- Riva, Zendrix(**@zendrix-hub**)
