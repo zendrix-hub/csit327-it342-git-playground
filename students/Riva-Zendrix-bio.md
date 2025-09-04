@@ -1,0 +1,4 @@
+- Year/Section: e.g., 3rd Year / G01
+- Favorite Language: e.g., Java
+- One Git Tip Learned: e.g., Use `git status` often
+- GitHub: @zendrix-hub
